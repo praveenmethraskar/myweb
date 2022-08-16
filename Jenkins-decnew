@@ -7,13 +7,13 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'javascript2', url: 'https://github.com/nice2pandu/myweb.git'
+                git credentialsId: 'javascript2', url: 'https://github.com/nice2pandu/my-app.git'
             }
         }
         stage("Maven Build"){
             steps{
                 sh "mvn clean sonar:sonar package"
-                sh "mv target/*.war target/myweb.war"
+                sh "mv target/*.war target/my-app.war"
             }
         }
         stage("deploy-dev"){
