@@ -7,7 +7,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'javahome2', url: 'https://github.com/nice2pandu/myweb.git'
+                git credentialsId: 'appcloning', url: 'https://github.com/nice2pandu/myweb.git'
             }
         }
         stage("Maven Build"){
@@ -19,31 +19,31 @@ pipeline{
         stage('Upload War To Nexus'){
             steps{
                   nexusArtifactUploader artifacts: [
-                       [
-                            artifactId: 'myweb', 
-                            classifier: '', 
-                            file: "target/myweb-8.3.2.war", 
-                            type: 'war'
-                       ]
-                  ], 
-                  credentialsId: 'nexus3', 
-                  groupId: 'in.javahome', 
-                  nexusUrl: '172.31.92.96:8081', 
-                  nexusVersion: 'nexus3', 
-                  protocol: 'http', 
-                  repository: 'sample-release', 
-                  version: '8.3.2'  
+	                   [
+	                    artifactId: 'myweb', 
+	                    classifier: '', 
+	                    file: 'target/myweb-8.3.3-SNAPSHOT.war', 
+	                    type: 'war'
+	                   ]
+    ], 
+	                    credentialsId: 'nexusbackup', 
+	                    groupId: 'in.javahome', 
+	                    nexusUrl: '3.238.227.146:8081', 
+	                    nexusVersion: 'nexus3', 
+	                    protocol: 'http', 
+	                    repository: 'sample-snapshot', 
+	                    version: '8.3.3-SNAPSHOT'  
               }
             }
         stage("deploy-dev"){
             steps{
-                sshagent(['tomcat-new']) {
+                sshagent(['Deploy-tomcat9']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb-8.3.2.war  ec2-user@172.31.91.252:/home/ec2-user/apache-tomcat-9.0.68/webapps/
+                    scp -o StrictHostKeyChecking=no target/myweb-8.3.3-SNAPSHOT.war  ec2-user@44.197.112.220:/home/ec2-user/apache-tomcat-9.0.70/webapps/
                     
-                    ssh ec2-user@172.31.91.252 /home/ec2-user/apache-tomcat-9.0.68/bin/shutdown.sh
+                    ssh ec2-user@44.197.112.220 /home/ec2-user/apache-tomcat-9.0.70/bin/shutdown.sh
                     
-                    ssh ec2-user@172.31.91.252 /home/ec2-user/apache-tomcat-9.0.68/bin/startup.sh
+                    ssh ec2-user@44.197.112.220 /home/ec2-user/apache-tomcat-9.0.70/bin/startup.sh
                 
                 """
             }
