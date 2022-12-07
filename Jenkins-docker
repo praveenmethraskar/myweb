@@ -48,7 +48,7 @@ pipeline{
         stage('Push Docker Image'){
              steps{
                   withCredentials([string(credentialsId: 'DOCKER_HUB_CREDENTIALS', variable: 'DOCKER_HUB_KEY')]) {
-                      sh "docker login -u nice2pandu -p ${DOCKER_HUB_CREDENTIALS}"
+                      sh "docker login -u nice2pandu -p ${DOCKER_HUB_KEY}"
             }
             sh 'docker push nice2pandu/dev'
         }
