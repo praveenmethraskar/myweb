@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'javahome2', url: 'https://github.com/srinivas1987devops/myweb.git'
+                git credentialsId: 'javahome2', url: 'https://github.com/nice2pandu/myweb.git'
             }
         }
         stage("Maven Build"){
@@ -21,21 +21,22 @@ pipeline{
         }
         stage('Upload War To Nexus'){
             steps{
-                  nexusArtifactUploader artifacts: [
-                       [
+                  nexusArtifactUploader artifacts: 
+                        [
+                            [
                             artifactId: 'myweb', 
                             classifier: '', 
-                            file: "target/myweb-8.2.0.war", 
+                            file: 'target/myweb-8.3.3-SNAPSHOT.war', 
                             type: 'war'
-                       ]
-                  ], 
-                  credentialsId: 'nexus3', 
-                  groupId: 'in.javahome', 
-                  nexusUrl: '172.31.46.170:8081', 
-                  nexusVersion: 'nexus3', 
-                  protocol: 'http', 
-                  repository: 'sample-releases', 
-                  version: '8.2.0'  
+                            ]
+                        ], 
+                        credentialsId: '480ec51a-f833-4c37-937b-89c6bc44cb96', 
+                        groupId: 'in.javahome', 
+                        nexusUrl: '172.31.0.92:8081', 
+                        nexusVersion: 'nexus3', 
+                        protocol: 'http', 
+                        repository: 'sample-snapshot', 
+                        version: '8.3.3-SNAPSHOT'  
               }
             }
         stage("Execute Ansible"){
