@@ -15,29 +15,11 @@ pipeline{
         }
         stage("Maven Build"){
             steps{
-                sh "mvn clean sonar:sonar package"
+                sh "mvn clean package"
                 
             }
         }
-        stage('Upload War To Nexus'){
-            steps{
-                  nexusArtifactUploader artifacts: [
-	            [
-                artifactId: 'myweb', 
-                classifier: '', 
-                file: 'target/myweb-8.3.3-SNAPSHOT.war', 
-                type: 'war'
-                ]
-            ], 
-                credentialsId: 'nexus3', 
-                groupId: 'in.javahome', 
-                nexusUrl: '172.31.1.59:8081', 
-                nexusVersion: 'nexus3', 
-                protocol: 'http', 
-                repository: 'sample-snapshot', 
-                version: '8.3.3-SNAPSHOT'  
-              }
-            }
+       
         stage('Build Docker Image'){
             steps{
                  sh 'docker build -t nice2pandu/dev .'
