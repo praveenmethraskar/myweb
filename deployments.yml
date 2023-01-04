@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: myweb
-        image: kammana/myweb:"$(version)"
+        image: nice2pandu/spring-boot-mongo:"$(version)"
         ports:
         - containerPort: 8080
