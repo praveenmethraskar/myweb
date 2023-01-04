@@ -16,6 +16,20 @@ spec:
     spec:
       containers:
       - name: myweb
-        image: nice2pandu/spring-boot-mongo:"$(version)"
+        image: kammana/nodeapp:v1
         ports:
         - containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: myweb
+spec:
+  selector:
+    app: myweb
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 8080
+    nodePort: 31000
+  type: NodePort
