@@ -12,7 +12,7 @@
 		<maven.compiler.source>1.8</maven.compiler.source>
                  <maven.compiler.target>1.8</maven.compiler.target>
 		<docker.image.prefix>kammana</docker.image.prefix>
-		<sonar.host.url>http://54.164.53.253:9000/</sonar.host.url>
+		<sonar.host.url>http://34.228.22.75:9000/</sonar.host.url>
 	</properties>
 	
 	
@@ -29,12 +29,12 @@
 	<distributionManagement>
 		 <snapshotRepository>
 		    <id>nexusRepo</id>
-		    <url>http://44.193.17.115:8081/repository/sample-snapshot/</url>
+		    <url>http://3.84.179.137:8081/repository/sample-snapshot/</url>
 		 </snapshotRepository>
 		
 		<repository>
 		    <id>nexusRepo</id>
-		    <url>http://44.193.17.115:8081/repository/sample-release/</url>
+		    <url>http://3.84.179.137:8081/repository/sample-release/</url>
 		</repository>
   	</distributionManagement>
 	
