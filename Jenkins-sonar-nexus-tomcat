@@ -7,7 +7,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'appcloning', url: 'https://github.com/nice2pandu/myweb.git'
+                git credentialsId: 'clone', url: 'https://github.com/nice2pandu/myweb.git'
             }
         }
         stage("Maven Build"){
@@ -18,21 +18,22 @@ pipeline{
         }
         stage('Upload War To Nexus'){
             steps{
-                  nexusArtifactUploader artifacts: [
-	                   [
-	                    artifactId: 'myweb', 
-	                    classifier: '', 
-	                    file: 'target/myweb-8.3.3-SNAPSHOT.war', 
-	                    type: 'war'
-	                   ]
-    ], 
-	                    credentialsId: 'nexusbackup', 
-	                    groupId: 'in.javahome', 
-	                    nexusUrl: '3.238.227.146:8081', 
-	                    nexusVersion: 'nexus3', 
-	                    protocol: 'http', 
-	                    repository: 'sample-snapshot', 
-	                    version: '8.3.3-SNAPSHOT'  
+                  nexusArtifactUploader artifacts: 
+		[
+			[
+			artifactId: 'myweb', 
+			classifier: '', 
+			file: 'target/myweb-8.3.4-SNAPSHOT.war', 
+			type: 'war'
+			]
+		], 
+		credentialsId: 'Backup', 
+		groupId: 'in.javahome', 
+		nexusUrl: '54.235.61.42:8081', 
+		nexusVersion: 'nexus3', 
+		protocol: 'http', 
+		repository: 'sample-snapshot', 
+		version: '8.3.4-SNAPSHOT' 
               }
             }
         stage("deploy-dev"){
