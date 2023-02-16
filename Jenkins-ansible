@@ -1,6 +1,8 @@
 pipeline{
     agent any
-   
+   tool{
+   maven 'Maven-3.6.1'
+   }
     
     environment{
         PATH = "/opt/maven3/bin:$PATH"
@@ -24,7 +26,7 @@ pipeline{
                         [
                         artifactId: 'myweb', 
                         classifier: '', 
-                        file: 'target/myweb-8.3.4-SNAPHSOT.war', 
+                        file: 'target/myweb-8.3.4-SNAPSHOT.war', 
                         type: 'war'
                         ]
                     ], 
@@ -34,7 +36,7 @@ pipeline{
                         nexusVersion: 'nexus3', 
                         protocol: 'http', 
                         repository: 'snapshot', 
-                        version: '8.3.4-SNAPHOT'  
+                        version: '8.3.4-SNAPSHOT'  
               }
             }
         stage("Execute Ansible"){
