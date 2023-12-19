@@ -22,7 +22,7 @@ pipeline{
 			[
 				[artifactId: 'myweb', 
 				classifier: '', 
-				file: 'target/myweb-8.3.4-SNAPSHOT.war', 
+				file: 'target/myweb-8.3.5-SNAPSHOT.war', 
 				type: 'war'
 				]
 			], 
