@@ -37,7 +37,7 @@ pipeline{
             }
         stage("deploy-dev"){
             steps{
-                sshagent(['deployment']) {
+                sshagent(['ssh_config']) {
                 sh """
                     scp -o StrictHostKeyChecking=no target/myweb-8.3.4-SNAPSHOT.war  ec2-user@50.10.0.163:/home/ec2-user/tomcat9/webapps/
                     
