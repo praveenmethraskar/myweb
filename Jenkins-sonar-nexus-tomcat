@@ -7,7 +7,7 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'clone', url: 'https://github.com/nice2pandu/myweb.git'
+                git credentialsId: 'git-clone', url: 'https://github.com/nice2pandu/myweb.git'
             }
         }
         stage("Maven Build"){
@@ -18,33 +18,32 @@ pipeline{
         }
         stage('Upload War To Nexus'){
             steps{
-                  nexusArtifactUploader artifacts: 
-		[
+                 nexusArtifactUploader artifacts: 
 			[
-			artifactId: 'myweb', 
-			classifier: '', 
-			file: 'target/myweb-8.3.4-SNAPSHOT.war', 
-			type: 'war'
-			]
-		], 
-		credentialsId: 'Backup', 
-		groupId: 'in.javahome', 
-		nexusUrl: '54.235.61.42:8081', 
-		nexusVersion: 'nexus3', 
-		protocol: 'http', 
-		repository: 'sample-snapshot', 
-		version: '8.3.4-SNAPSHOT' 
+				[artifactId: 'myweb', 
+				classifier: '', 
+				file: 'target/myweb-8.3.4-SNAPSHOT.war', 
+				type: 'war'
+				]
+			], 
+			credentialsId: 'nexusbackup', 
+			groupId: 'in.javahome', 
+			nexusUrl: '54.202.232.83:8081', 
+			nexusVersion: 'nexus3', 
+			protocol: 'http', 
+			repository: 'snapshot', 
+			version: '8.3.5-SNAPSHOT' 
               }
             }
         stage("deploy-dev"){
             steps{
                 sshagent(['deployment']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb-8.3.4-SNAPSHOT.war  ec2-user@172.31.17.224:/home/ec2-user/tomcat9/webapps/
+                    scp -o StrictHostKeyChecking=no target/myweb-8.3.4-SNAPSHOT.war  ec2-user@50.10.0.163:/home/ec2-user/tomcat9/webapps/
                     
-                    ssh ec2-user@172.31.17.224 /home/ec2-user/tomcat9/bin/shutdown.sh
+                    ssh ec2-user@50.10.0.163 /home/ec2-user/tomcat9/bin/shutdown.sh
                     
-                    ssh ec2-user@172.31.17.224 /home/ec2-user/tomcat9/bin/startup.sh
+                    ssh ec2-user@50.10.0.163 /home/ec2-user/tomcat9/bin/startup.sh
                 
                 """
             }
