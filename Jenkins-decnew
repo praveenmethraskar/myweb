@@ -7,12 +7,12 @@ pipeline{
     stages{
         stage("Git Checkout"){
             steps{
-                git credentialsId: 'git-clone', url: 'https://github.com/nice2pandu/myweb.git'
+                git credentialsId: 'code_clone', url: 'https://github.com/nice2pandu/myweb.git'
             }
         }
         stage("Generating Package"){
             steps{
-                sh "mvn clean deploy"
+                sh "mvn clean package"
                 sh "mv target/*.war target/myweb.war"
             }
         }
