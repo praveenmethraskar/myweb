@@ -12,7 +12,7 @@
 
 <div class="container">
   <div class="jumbotron">
-    <h1>JENKINS NEXUS SONAR PROJECT NO 5</h1>      
+    <h1>JENKINS NEXUS SONAR tomcat</h1>      
     <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing responsive, mobile-first projects on the web.</p>
   </div>    
 </div>
