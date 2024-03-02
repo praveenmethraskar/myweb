@@ -39,11 +39,11 @@ pipeline{
             steps{
                 sshagent(['deployment']) {
                 sh """
-                    scp -o StrictHostKeyChecking=no target/myweb-8.3.6-SNAPSHOT.war  ec2-user@54.189.133.69: /home/ec2-user/tomcat9/webapps
+                    scp -o StrictHostKeyChecking=no target/myweb-8.3.6-SNAPSHOT.war  ec2-user@172.31.25.80: /home/ec2-user/tomcat9/webapps
                     
-                    ssh ec2-user@54.189.133.69 /home/ec2-user/tomcat9/bin/shutdown.sh
+                    ssh ec2-user@172.31.25.80 /home/ec2-user/tomcat9/bin/shutdown.sh
                     
-                    ssh ec2-user@54.189.133.69 /home/ec2-user/tomcat9/bin/startup.sh
+                    ssh ec2-user@172.31.25.80 /home/ec2-user/tomcat9/bin/startup.sh
                 
                 """
             }
