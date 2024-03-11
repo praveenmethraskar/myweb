@@ -3,5 +3,5 @@
    tasks:
      - name: copy the file from local to remote
        copy:
-         src: target/myweb-8.3.4-SNAPSHOT.war
+         src: target/myweb-8.3.6-SNAPSHOT.war
          dest: /home/ec2-user/tomcat9/webapps/
